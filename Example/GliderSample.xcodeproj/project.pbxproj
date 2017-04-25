@@ -13,6 +13,10 @@
 		C7202A151EAF27D6006A9BDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7202A141EAF27D6006A9BDB /* Assets.xcassets */; };
 		C7202A181EAF27D6006A9BDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7202A161EAF27D6006A9BDB /* LaunchScreen.storyboard */; };
 		C7202A231EAF27D6006A9BDB /* GliderSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7202A221EAF27D6006A9BDB /* GliderSampleTests.swift */; };
+		C7EB7AF41EAF31D1000C67F7 /* RDGliderContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF31EAF31D1000C67F7 /* RDGliderContentViewController.swift */; };
+		C7EB7AF61EAF3A49000C67F7 /* RDGliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */; };
+		C7EB7AF81EAF3A60000C67F7 /* RDScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */; };
+		C7EB7AFB1EAF3AB2000C67F7 /* RDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AFA1EAF3AB2000C67F7 /* RDButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,10 @@
 		C7202A1E1EAF27D6006A9BDB /* GliderSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GliderSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7202A221EAF27D6006A9BDB /* GliderSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderSampleTests.swift; sourceTree = "<group>"; };
 		C7202A241EAF27D6006A9BDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7EB7AF31EAF31D1000C67F7 /* RDGliderContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDGliderContentViewController.swift; sourceTree = "<group>"; };
+		C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDGliderViewController.swift; sourceTree = "<group>"; };
+		C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDScrollView.swift; sourceTree = "<group>"; };
+		C7EB7AFA1EAF3AB2000C67F7 /* RDButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +85,7 @@
 		C7202A0C1EAF27D6006A9BDB /* GliderSample */ = {
 			isa = PBXGroup;
 			children = (
+				C7EB7AF91EAF3A6C000C67F7 /* Helpers */,
 				C7202A2F1EAF29AC006A9BDB /* RDGliderViewController */,
 				C7202A0D1EAF27D6006A9BDB /* AppDelegate.swift */,
 				C7202A0F1EAF27D6006A9BDB /* ViewController.swift */,
@@ -100,9 +109,20 @@
 		C7202A2F1EAF29AC006A9BDB /* RDGliderViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C7EB7AF31EAF31D1000C67F7 /* RDGliderContentViewController.swift */,
+				C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */,
+				C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */,
 			);
 			name = RDGliderViewController;
 			path = ../../RDGliderViewController;
+			sourceTree = "<group>";
+		};
+		C7EB7AF91EAF3A6C000C67F7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C7EB7AFA1EAF3AB2000C67F7 /* RDButton.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,8 +261,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7EB7AF41EAF31D1000C67F7 /* RDGliderContentViewController.swift in Sources */,
+				C7EB7AF81EAF3A60000C67F7 /* RDScrollView.swift in Sources */,
 				C7202A101EAF27D6006A9BDB /* ViewController.swift in Sources */,
+				C7EB7AFB1EAF3AB2000C67F7 /* RDButton.swift in Sources */,
 				C7202A0E1EAF27D6006A9BDB /* AppDelegate.swift in Sources */,
+				C7EB7AF61EAF3A49000C67F7 /* RDGliderViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
