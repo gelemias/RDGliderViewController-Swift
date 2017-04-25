@@ -1,0 +1,7 @@
+# .slather.yml
+
+coverage_service: coveralls
+xcodeproj: Example/GliderSample.xcodeproj
+scheme: GliderSample
+ignore:
+  - ../*

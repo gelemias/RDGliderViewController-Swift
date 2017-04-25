@@ -1,0 +1,11 @@
+language: swift
+osx_image: xcode8.3
+
+script:
+  set -o pipefail; xcodebuild -project Example/GliderSample.xcodeproj -scheme GliderSample clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO;
+  set -o pipefail; xcodebuild test -project Example/GliderSample.xcodeproj -scheme GliderSample -destination "platform=iOS Simulator,name=iPhone 6,OS=latest";
+after_success:
+  slather
+
+notifications:
+  email: false
