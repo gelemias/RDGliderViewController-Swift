@@ -24,9 +24,19 @@ public enum RDScrollViewOrientationType: Int {
 class RDScrollView: UIScrollView {
     
     /**
-     DraggableContainer
+     Draggable content
      */
-    var content : UIView?
+    var _content : UIView?
+    var content : UIView? {
+        set {
+            _content = newValue
+            self.addContent(content: _content!)
+        }
+
+        get {
+           return _content
+        }
+    }
     
     /**
      Orientation for draggable container.
@@ -40,11 +50,15 @@ class RDScrollView: UIScrollView {
     private var _offsets: [NSNumber] = []
     var offsets: [NSNumber] {
         set {
-            let clearOffsets: [NSNumber] = (newValue as NSArray).value(forKeyPath: "distinctUnionOfObjects.self") as! [NSNumber]
+            let clearOffsets: [NSNumber] = NSOrderedSet.init(array: newValue).array as! [NSNumber]
             let reversedOffsets: NSMutableArray = []
             
             for number: NSNumber in clearOffsets {
-                assert(number.floatValue > 1.0, "Invalid offset value - offset represents a %% of contentView to be shown i.e. 0.5 of a contentView of 100px will show 50px")
+                if ( number.floatValue < 0.0 || 1.0 < number.floatValue) {
+                    NSException(name:NSExceptionName(rawValue: "Invalid offset value"),
+                                reason:"offset represents a %% of contentView to be shown i.e. 0.5 of a contentView of 100px will show 50px").raise()
+                }
+                
                 if self.orientationType == .RDScrollViewOrientationTopToBottom ||
                         self.orientationType == .RDScrollViewOrientationLeftToRight {
                     reversedOffsets.add(NSNumber.init(value: Float(1 - number.floatValue)))
@@ -78,7 +92,7 @@ class RDScrollView: UIScrollView {
     /**
      Returns the position of open Offsets.
      */
-    public private(set) var offsetIndex: UInt = 0
+    public private(set) var offsetIndex: Int = 0
     
     /**
      Margin of elastic animation default is 20px.
@@ -136,6 +150,7 @@ class RDScrollView: UIScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.initializeByDefault()
+
     }
     
     // Disabled implementation use instead init(frame: CGRect)
@@ -147,27 +162,27 @@ class RDScrollView: UIScrollView {
      Call this method to force recalculation of contentSize in ScrollView, i.e. when content changes.
      */
     func recalculateContentSize() {
-        var size: CGSize = CGSize.zero;
+        var size: CGSize = CGSize.zero
         
         if (self.orientationType == .RDScrollViewOrientationBottomToTop) {
-            size.height = self.frame.height + (self.content!.frame.height * CGFloat(self.offsets.last!.floatValue)) + CGFloat(self.margin);
+            size.height = self.frame.height + (self.content!.frame.height * CGFloat(self.offsets.last!.floatValue)) + CGFloat(self.margin)
         }
         else if (self.orientationType == .RDScrollViewOrientationTopToBottom){
-            size.height = self.frame.height + (self.content!.frame.height * CGFloat(self.offsets.first!.floatValue)) + CGFloat(self.margin);
+            size.height = self.frame.height + (self.content!.frame.height * CGFloat(self.offsets.first!.floatValue)) + CGFloat(self.margin)
         }
         else if (self.orientationType == .RDScrollViewOrientationRightToLeft) {
-            size.width = self.frame.width + (self.content!.frame.width * CGFloat(self.offsets.last!.floatValue)) + CGFloat(self.margin);
+            size.width = self.frame.width + (self.content!.frame.width * CGFloat(self.offsets.last!.floatValue)) + CGFloat(self.margin)
         }
         else if (self.orientationType == .RDScrollViewOrientationLeftToRight) {
-            size.width = self.frame.width + (self.content!.frame.width * CGFloat(self.offsets.first!.floatValue)) + CGFloat(self.margin);
+            size.width = self.frame.width + (self.content!.frame.width * CGFloat(self.offsets.first!.floatValue)) + CGFloat(self.margin)
         }
         
         self.contentSize = size
         self.layoutIfNeeded()
     }
-    
+
     // Methods to Increase or decrease offset of content within RDScrollView.
-    func changeOffsetTo(offsetIndex: UInt, animated: Bool, completion: ((Bool) -> Swift.Void)? = nil) {
+    func changeOffsetTo(offsetIndex: Int, animated: Bool, completion: ((Bool) -> ())?) {
         
         panGestureRecognizer.isEnabled = false
         UIView.animate(withDuration: TimeInterval(self.duration),
@@ -179,7 +194,7 @@ class RDScrollView: UIScrollView {
                         
             self.content?.isHidden = false
             if self.orientationType == .RDScrollViewOrientationLeftToRight {
-                let margin: Float = (offsetIndex == 0 || offsetIndex == UInt(self.offsets.count - 1)) ? self.margin : Float(0.0)
+                let margin: Float = (offsetIndex == 0 || offsetIndex == Int(self.offsets.count - 1)) ? self.margin : Float(0.0)
                 self.setContentOffset(CGPoint.init(x: ((CGFloat(self.offsets[Int(offsetIndex)]) * self.content!.frame.width) + CGFloat(margin)), y: CGFloat(self.contentOffset.y)), animated: animated)
             }
             else if self.orientationType == .RDScrollViewOrientationRightToLeft {
@@ -203,25 +218,23 @@ class RDScrollView: UIScrollView {
             }
             
             self.content?.isHidden = !self.isOpen
-            self.panGestureRecognizer.isEnabled = true;
+            self.panGestureRecognizer.isEnabled = true
             
-            if (completion != nil) {
-                completion!(finished)
-            }
+            completion?(finished)
         })
     }
     
-    func expandWithCompletion(completion: ((Bool) -> Swift.Void)? = nil) {
-        let nextIndex: UInt = self.offsetIndex + 1 < UInt(self.offsets.count) ? self.offsetIndex + 1 : self.offsetIndex;
+    func expandWithCompletion(completion: ((Bool) -> ())?) {
+        let nextIndex: Int = self.offsetIndex + 1 < Int(self.offsets.count) ? self.offsetIndex + 1 : self.offsetIndex
         self.changeOffsetTo(offsetIndex: nextIndex, animated: false, completion: completion)
     }
     
-    func collapseWithCompletion(completion: ((Bool) -> Swift.Void)? = nil) {
-        let nextIndex: UInt = self.offsetIndex == 0 ? 0 : self.offsetIndex - 1;
+    func collapseWithCompletion(completion: ((Bool) -> ())?) {
+        let nextIndex: Int = self.offsetIndex == 0 ? 0 : self.offsetIndex - 1
         self.changeOffsetTo(offsetIndex: nextIndex, animated: false, completion: completion)
     }
     
-    func closeWithCompletion(completion: ((Bool) -> Swift.Void)? = nil) {
+    func closeWithCompletion(completion: ((Bool) -> ())?) {
         self.changeOffsetTo(offsetIndex: 0, animated: false, completion: completion)
     }
     
@@ -239,6 +252,52 @@ class RDScrollView: UIScrollView {
         self.isPagingEnabled = false
         self.contentInset = UIEdgeInsets.zero
         self.decelerationRate = UIScrollViewDecelerationRateFast
+    }
+    
+    private func addContent(content: UIView) {
+        if content.frame.isNull {
+            return
+        }
+        
+        self.subviews.forEach { $0.removeFromSuperview() }
+        
+        let container: UIView = UIView.init()
+        container.addSubview(content)
+        self.addSubview(container)
+        
+        container.translatesAutoresizingMaskIntoConstraints = false
+        content.translatesAutoresizingMaskIntoConstraints = false
+        
+        if self.orientationType == .RDScrollViewOrientationRightToLeft {
+
+            container.addConstraints([NSLayoutConstraint(item: content,   attribute: .top, relatedBy: .equal,
+                                                       toItem: container, attribute: .top, multiplier: 1.0, constant: 0.0),
+                                      NSLayoutConstraint(item: content,   attribute: .bottom, relatedBy: .equal,
+                                                       toItem: container, attribute: .bottom, multiplier: 1.0, constant: 0.0),
+                                      NSLayoutConstraint(item: content,   attribute: .trailing, relatedBy: .equal,
+                                                       toItem: container, attribute: .trailing, multiplier: 1.0, constant: 0.0)])
+            
+            self.addConstraints([NSLayoutConstraint(item: container, attribute: .leading, relatedBy: .equal,
+                                                  toItem: self,      attribute: .leading, multiplier: 1.0, constant: 0.0),
+                                 NSLayoutConstraint(item: container, attribute: .top, relatedBy: .equal,
+                                                  toItem: self,      attribute: .top, multiplier: 1.0, constant: 0.0),
+                                 NSLayoutConstraint(item: container, attribute: .height, relatedBy: .equal,
+                                                  toItem: self,      attribute: .height, multiplier: 1.0, constant: 0.0)])
+            
+            if content.frame.isEmpty {
+                self.addConstraints([NSLayoutConstraint(item: content, attribute: .width,  relatedBy: .equal,
+                                                      toItem: self,    attribute: .width, multiplier: 1.0, constant: 0.0),
+                                     NSLayoutConstraint(item: container, attribute: .width,  relatedBy: .equal,
+                                                      toItem: self,      attribute: .width, multiplier: 2.0, constant: 0.0)])
+            } else {
+              
+                container.addConstraints([NSLayoutConstraint(item: content, attribute: .width,  relatedBy: .equal,
+                                                           toItem: nil,     attribute: .notAnAttribute, multiplier: 1.0, constant: content.frame.width)])
+                
+                self.addConstraints([NSLayoutConstraint(item: container, attribute: .width,  relatedBy: .equal,
+                                                      toItem: self,      attribute: .width, multiplier: 1.0, constant: content.frame.width)])
+            }
+        }
     }
     
     private func viewContainsPoint(point: CGPoint, inView view: UIView) -> Bool {

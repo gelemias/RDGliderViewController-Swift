@@ -32,7 +32,7 @@
 /* Begin PBXFileReference section */
 		C7202A0A1EAF27D6006A9BDB /* GliderSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GliderSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7202A0D1EAF27D6006A9BDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C7202A0F1EAF27D6006A9BDB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7202A0F1EAF27D6006A9BDB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C7202A121EAF27D6006A9BDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7202A141EAF27D6006A9BDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7202A171EAF27D6006A9BDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -41,8 +41,8 @@
 		C7202A221EAF27D6006A9BDB /* GliderSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderSampleTests.swift; sourceTree = "<group>"; };
 		C7202A241EAF27D6006A9BDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7EB7AF31EAF31D1000C67F7 /* RDGliderContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDGliderContentViewController.swift; sourceTree = "<group>"; };
-		C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDGliderViewController.swift; sourceTree = "<group>"; };
-		C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDScrollView.swift; sourceTree = "<group>"; };
+		C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RDGliderViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RDScrollView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C7EB7AFA1EAF3AB2000C67F7 /* RDButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -177,6 +177,7 @@
 				TargetAttributes = {
 					C7202A091EAF27D6006A9BDB = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 25C7G4ZGRB;
 						ProvisioningStyle = Automatic;
 					};
 					C7202A1D1EAF27D6006A9BDB = {
@@ -407,6 +408,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 25C7G4ZGRB;
 				INFOPLIST_FILE = GliderSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSample;
@@ -419,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 25C7G4ZGRB;
 				INFOPLIST_FILE = GliderSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSample;
