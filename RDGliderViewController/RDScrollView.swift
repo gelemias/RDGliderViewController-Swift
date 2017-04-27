@@ -72,11 +72,8 @@ class RDScrollView: UIScrollView {
                 newOffsets = newOffsets.sorted { $0.floatValue < $1.floatValue }.reversed()
             }
             
-            if newValue != newOffsets {
-                self.recalculateContentSize()
-            }
-            
             _offsets = newOffsets
+            self.recalculateContentSize()
         }
         
         get {
@@ -162,6 +159,11 @@ class RDScrollView: UIScrollView {
      Call this method to force recalculation of contentSize in ScrollView, i.e. when content changes.
      */
     func recalculateContentSize() {
+        
+        if (self.content == nil || self.offsets.isEmpty) {
+            return;
+        }
+        
         var size: CGSize = CGSize.zero
         
         if (self.orientationType == .RDScrollViewOrientationBottomToTop) {
@@ -298,6 +300,101 @@ class RDScrollView: UIScrollView {
                                                       toItem: self,      attribute: .width, multiplier: 1.0, constant: content.frame.width)])
             }
         }
+        else if self.orientationType == .RDScrollViewOrientationLeftToRight {
+            
+            self.leftToRightLeadingContraint = NSLayoutConstraint(item: content,   attribute: .leading, relatedBy: .equal,
+                                                                toItem: container, attribute: .leading, multiplier: 1.0, constant: CGFloat(self.margin))
+            
+            container.addConstraints([NSLayoutConstraint(item: content,   attribute: .top, relatedBy: .equal,
+                                                       toItem: container, attribute: .top, multiplier: 1.0, constant: 0.0),
+                                      NSLayoutConstraint(item: content,   attribute: .bottom, relatedBy: .equal,
+                                                       toItem: container, attribute: .bottom, multiplier: 1.0, constant: self.leftToRightLeadingContraint!.constant)])
+            
+            self.addConstraints([NSLayoutConstraint(item: container, attribute: .leading, relatedBy: .equal,
+                                                  toItem: self,      attribute: .leading, multiplier: 1.0, constant: 0.0),
+                                 NSLayoutConstraint(item: container, attribute: .top, relatedBy: .equal,
+                                                  toItem: self,      attribute: .top, multiplier: 1.0, constant: 0.0),
+                                 NSLayoutConstraint(item: container, attribute: .height, relatedBy: .equal,
+                                                  toItem: self,      attribute: .height, multiplier: 1.0, constant: 0.0)])
+            
+            if content.frame.isEmpty {
+                self.addConstraints([NSLayoutConstraint(item: content, attribute: .width,  relatedBy: .equal,
+                                                      toItem: self,    attribute: .width, multiplier: 1.0, constant: 0.0),
+                                     NSLayoutConstraint(item: container, attribute: .width,  relatedBy: .equal,
+                                                      toItem: self,      attribute: .width, multiplier: 2.0, constant: 0.0)])
+            } else {
+                
+                container.addConstraints([NSLayoutConstraint(item: content, attribute: .width,  relatedBy: .equal,
+                                                           toItem: nil,     attribute: .notAnAttribute, multiplier: 1.0, constant: content.frame.width)])
+                
+                self.addConstraints([NSLayoutConstraint(item: container, attribute: .width,  relatedBy: .equal,
+                                                      toItem: self,      attribute: .width, multiplier: 1.0, constant: content.frame.width)])
+            }
+        }
+        else if self.orientationType == .RDScrollViewOrientationBottomToTop {
+            
+            container.addConstraints([NSLayoutConstraint(item: content,   attribute: .leading, relatedBy: .equal,
+                                                       toItem: container, attribute: .leading, multiplier: 1.0, constant: 0.0),
+                                      NSLayoutConstraint(item: content,   attribute: .trailing, relatedBy: .equal,
+                                                       toItem: container, attribute: .trailing, multiplier: 1.0, constant: 0.0),
+                                      NSLayoutConstraint(item: content,   attribute: .bottom, relatedBy: .equal,
+                                                       toItem: container, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+            
+            self.addConstraints([NSLayoutConstraint(item: container, attribute: .leading, relatedBy: .equal,
+                                                  toItem: self,      attribute: .leading, multiplier: 1.0, constant: 0.0),
+                                 NSLayoutConstraint(item: container, attribute: .top, relatedBy: .equal,
+                                                  toItem: self,      attribute: .top, multiplier: 1.0, constant: 0.0),
+                                 NSLayoutConstraint(item: container, attribute: .width, relatedBy: .equal,
+                                                  toItem: self,      attribute: .width, multiplier: 1.0, constant: 0.0)])
+            
+            if content.frame.isEmpty {
+                self.addConstraints([NSLayoutConstraint(item: content, attribute: .height,  relatedBy: .equal,
+                                                      toItem: self,    attribute: .height, multiplier: 1.0, constant: 0.0),
+                                     NSLayoutConstraint(item: container, attribute: .height,  relatedBy: .equal,
+                                                      toItem: self,      attribute: .height, multiplier: 2.0, constant: 0.0)])
+            } else {
+                
+                container.addConstraints([NSLayoutConstraint(item: content, attribute: .height,  relatedBy: .equal,
+                                                           toItem: nil,     attribute: .notAnAttribute, multiplier: 1.0, constant: content.frame.height)])
+                
+                self.addConstraints([NSLayoutConstraint(item: container, attribute: .height,  relatedBy: .equal,
+                                                      toItem: self,      attribute: .height, multiplier: 1.0, constant: content.frame.height)])
+            }
+        }
+        else if self.orientationType == .RDScrollViewOrientationTopToBottom {
+            
+            self.topToBottomTopContraint = NSLayoutConstraint(item: content,   attribute: .top, relatedBy: .equal,
+                                                            toItem: container, attribute: .top, multiplier: 1.0, constant: CGFloat(self.margin))
+        
+            container.addConstraints([NSLayoutConstraint(item: content,   attribute: .leading, relatedBy: .equal,
+                                                       toItem: container, attribute: .leading, multiplier: 1.0, constant: 0.0),
+                                      NSLayoutConstraint(item: content,   attribute: .trailing, relatedBy: .equal,
+                                                       toItem: container, attribute: .trailing, multiplier: 1.0, constant: self.topToBottomTopContraint!.constant)])
+            
+            self.addConstraints([NSLayoutConstraint(item: container, attribute: .leading, relatedBy: .equal,
+                                                  toItem: self,      attribute: .leading, multiplier: 1.0, constant: 0.0),
+                                 NSLayoutConstraint(item: container, attribute: .top, relatedBy: .equal,
+                                                  toItem: self,      attribute: .top, multiplier: 1.0, constant: 0.0),
+                                 NSLayoutConstraint(item: container, attribute: .width, relatedBy: .equal,
+                                                  toItem: self,      attribute: .width, multiplier: 1.0, constant: 0.0)])
+            
+            if content.frame.isEmpty {
+                self.addConstraints([NSLayoutConstraint(item: content, attribute: .height,  relatedBy: .equal,
+                                                      toItem: self,    attribute: .height, multiplier: 1.0, constant: 0.0),
+                                     NSLayoutConstraint(item: container, attribute: .height,  relatedBy: .equal,
+                                                      toItem: self,      attribute: .height, multiplier: 2.0, constant: 0.0)])
+            } else {
+                
+                container.addConstraints([NSLayoutConstraint(item: content, attribute: .height,  relatedBy: .equal,
+                                                           toItem: nil,     attribute: .notAnAttribute, multiplier: 1.0, constant: content.frame.height)])
+                
+                self.addConstraints([NSLayoutConstraint(item: container, attribute: .height,  relatedBy: .equal,
+                                                      toItem: self,      attribute: .height, multiplier: 1.0, constant: content.frame.height)])
+            }
+        }
+        
+        self.layoutIfNeeded()
+        self.recalculateContentSize()
     }
     
     private func viewContainsPoint(point: CGPoint, inView view: UIView) -> Bool {

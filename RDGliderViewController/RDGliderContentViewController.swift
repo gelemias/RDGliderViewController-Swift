@@ -14,9 +14,14 @@ class RDGliderContentViewController: UIViewController {
     var cornerRadius: CGFloat?
     private var lenght: CGFloat?
     
-    required init?(lenght: CGFloat) {
+    required init(lenght: CGFloat) {
         super.init(nibName: nil, bundle: nil)
         self.lenght = lenght
+    }
+    
+    required init() {
+        super.init(nibName: nil, bundle: nil)
+        self.lenght = 0.0
     }
     
     required init?(coder aDecoder: NSCoder) {

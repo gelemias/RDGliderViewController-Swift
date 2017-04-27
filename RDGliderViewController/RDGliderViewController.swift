@@ -49,7 +49,15 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Margin of elastic animation default is 20px
      */
-    var marginOffset: Float = 20.0
+    var marginOffset: Float {
+        get {
+            return (self.scrollView?.margin)!
+        }
+        
+        set {
+            self.scrollView?.margin = newValue
+        }
+    }
     
     /**
      Sorted list of offsets in % of contentVC view. from 0 to 1
