@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum RDScrollViewOrientationType: Int {
+@objc public enum RDScrollViewOrientationType: Int {
     
     case RDScrollViewOrientationUnknown
     
@@ -21,7 +21,7 @@ public enum RDScrollViewOrientationType: Int {
     case RDScrollViewOrientationTopToBottom
 }
 
-class RDScrollView: UIScrollView {
+@objc class RDScrollView: UIScrollView {
     
     /**
      Draggable content
@@ -42,13 +42,13 @@ class RDScrollView: UIScrollView {
      Orientation for draggable container.
      Default value : RDScrollViewOrientationLeftToRight
      */
-    var orientationType: RDScrollViewOrientationType = .RDScrollViewOrientationRightToLeft
+    public var orientationType: RDScrollViewOrientationType = .RDScrollViewOrientationRightToLeft
     
     /**
      Expandable offset in % of content view. from 0 to 1.
      */
     private var _offsets: [NSNumber] = []
-    var offsets: [NSNumber] {
+    public var offsets: [NSNumber] {
         set {
             let clearOffsets: [NSNumber] = NSOrderedSet.init(array: newValue).array as! [NSNumber]
             let reversedOffsets: NSMutableArray = []
@@ -151,7 +151,7 @@ class RDScrollView: UIScrollView {
     }
     
     // Disabled implementation use instead init(frame: CGRect)
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -415,7 +415,7 @@ class RDScrollView: UIScrollView {
 
 // MARK: - touch handlers
 
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         
         if !self.isUserInteractionEnabled || self.isHidden || self.alpha <= 0.01 {
             return nil

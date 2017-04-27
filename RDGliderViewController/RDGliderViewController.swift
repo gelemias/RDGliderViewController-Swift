@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol RDGliderViewControllerDelegate {
+@objc protocol RDGliderViewControllerDelegate {
     /**
      Delegate method to notify invoke object when offset has changed
      */
@@ -144,10 +144,16 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     
     /**
      Change contentViewController type and offsets after the VC has been initialized.
-     * @param contentViewController external ViewController placed as a content of the GlideView
+     * @param content external ViewController placed as a content of the GlideView
      * @param type of GlideView Left to Right, Right to Left, Bottom To Top and Top to Bottom.
      * @param offsets Array of offsets in % (0 to 1) dependent of Content size if not expecified UIScreen  */
     public func setContentViewController(Content content: RDGliderContentViewController, AndType type: RDScrollViewOrientationType, WithOffsets offsets: [NSNumber]) {
+        
+        if (content == nil) {
+            NSException(name:NSExceptionName(rawValue: "Invalid RDGliderContentViewController value"),
+                        reason:"RDGliderContentViewController cannot be nil").raise()
+
+        }
 
         self.parent?.automaticallyAdjustsScrollViewInsets = false
         self.automaticallyAdjustsScrollViewInsets = false

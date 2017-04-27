@@ -20,6 +20,20 @@
                ReferencedContainer = "container:GliderSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C7202A1D1EAF27D6006A9BDB"
+               BuildableName = "GliderSampleTests.xctest"
+               BlueprintName = "GliderSampleTests"
+               ReferencedContainer = "container:GliderSample.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
