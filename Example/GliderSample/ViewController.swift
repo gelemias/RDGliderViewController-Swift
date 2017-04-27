@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         let content:RDGliderContentViewController = RDGliderContentViewController.init()
         content.view.backgroundColor = UIColor.red
         content.showShadow = true
-        content.cornerRadius = 20.0
+        content.cornerRadius = 10.0
         
         self.rightToLeftGlideVC = RDGliderViewController.init(parent: self,
                                                               WithContent: content,
@@ -60,10 +60,10 @@ class ViewController: UIViewController {
     }
 
     func initBottomToTopGlideView() {
-        let content:RDGliderContentViewController = RDGliderContentViewController.init(lenght: 300.0)
+        let content:RDGliderContentViewController = RDGliderContentViewController.init(length: 200.0)
         content.view.backgroundColor = UIColor.purple
         content.showShadow = true
-        content.cornerRadius = 20.0
+        content.cornerRadius = 10.0
         
         self.bottomToTopGlideVC = RDGliderViewController.init(parent: self,
                                                               WithContent: content,
@@ -74,22 +74,22 @@ class ViewController: UIViewController {
 
     func initLeftToRightGlideView() {
         let content:RDGliderContentViewController = RDGliderContentViewController.init()
-        content.view.backgroundColor = UIColor.purple
+        content.view.backgroundColor = UIColor.orange
         content.showShadow = true
-        content.cornerRadius = 20.0
+        content.cornerRadius = 10.0
         
         self.leftToRightGlideVC = RDGliderViewController.init(parent: self,
                                                               WithContent: content,
                                                               AndType: .RDScrollViewOrientationLeftToRight,
-                                                              WithOffsets: [0, 0.2, 0.4, 0.6, 0.8])
+                                                              WithOffsets: [0, 0.2, 0.4, 0.6, 0.8, 1])
         self.leftToRightGlideVC?.delegate = self
     }
     
     func initTopToBottomGlideView() {
-        let content:RDGliderContentViewController = RDGliderContentViewController.init(lenght: 200.0)
-        content.view.backgroundColor = UIColor.purple
+        let content:RDGliderContentViewController = RDGliderContentViewController.init()
+        content.view.backgroundColor = UIColor.magenta
         content.showShadow = true
-        content.cornerRadius = 20.0
+        content.cornerRadius = 10.0
         
         self.topToBottomGlideVC = RDGliderViewController.init(parent: self,
                                                               WithContent: content,

@@ -10,18 +10,50 @@ import UIKit
 
 class RDGliderContentViewController: UIViewController {
 
-    var showShadow: Bool?
-    var cornerRadius: CGFloat?
-    private var lenght: CGFloat?
+    var _showShadow: Bool = false
+    var showShadow: Bool {
+        set {
+            _showShadow = newValue
+            
+            if (_showShadow) {
+                self.view.layer.shadowColor = UIColor.black.cgColor
+                self.view.layer.shadowOpacity = 0.5
+                self.view.layer.shadowRadius = 5.0
+                self.view.layer.shadowOffset = CGSize.init(width: 0, height: 0)
+            } else {
+                self.view.layer.shadowRadius = 0.0
+            }
+        }
+        
+        get {
+            return _showShadow
+        }
+    }
     
-    required init(lenght: CGFloat) {
+    var _cornerRadius: Float = 0.0
+    var cornerRadius: Float {
+        set {
+            _cornerRadius = newValue
+        
+            self.view.layer.cornerRadius = CGFloat(_cornerRadius)
+            self.view.subviews.first?.layer.cornerRadius = CGFloat(_cornerRadius)
+        }
+        
+        get {
+            return _cornerRadius
+        }
+    }
+    
+    private var length: CGFloat?
+    
+    required init(length: CGFloat) {
         super.init(nibName: nil, bundle: nil)
-        self.lenght = lenght
+        self.length = length
     }
     
     required init() {
         super.init(nibName: nil, bundle: nil)
-        self.lenght = 0.0
+        self.length = 0.0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,23 +63,9 @@ class RDGliderContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.frame = CGRect.init(x:0, y:0, width:self.lenght!, height:self.lenght!)
+        self.view.frame = CGRect.init(x:0, y:0, width:self.length!, height:self.length!)
         
         self.cornerRadius = 0.0
         self.showShadow = false
-    }
-    
-    func setShowShadow(showShadow: Bool) {
-        if showShadow {
-            self.view.layer.shadowColor = UIColor.black.cgColor
-            self.view.layer.shadowOpacity = 0.5
-            self.view.layer.shadowRadius = 5.0
-            self.view.layer.shadowOffset = CGSize.init(width: 0, height: 0)
-        }
-    }
-    
-    func setCornerRadius(cornerRadius: CGFloat) {
-        self.view.layer.cornerRadius = cornerRadius
-        self.view.subviews.first?.layer.cornerRadius = cornerRadius
     }
 }
