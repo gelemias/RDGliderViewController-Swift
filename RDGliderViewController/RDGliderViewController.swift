@@ -37,7 +37,7 @@ protocol RDGliderViewControllerDelegate {
 
 class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     
-    var delegate: RDGliderViewControllerDelegate?
+    public var delegate: RDGliderViewControllerDelegate?
     
     private var scrollView: RDScrollView?
     
@@ -49,7 +49,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Margin of elastic animation default is 20px
      */
-    var marginOffset: Float {
+    public var marginOffset: Float {
         get {
             return (self.scrollView?.margin)!
         }
@@ -62,7 +62,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Sorted list of offsets in % of contentVC view. from 0 to 1
      */
-    var offsets: [NSNumber] {
+    public var offsets: [NSNumber] {
         get {
             return (self.scrollView?.offsets)!
         }
@@ -75,7 +75,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Orientation type of the glide view
      */
-    var orientationType: RDScrollViewOrientationType {
+    public var orientationType: RDScrollViewOrientationType {
         get {
             if self.scrollView == nil {
                 return .RDScrollViewOrientationUnknown
@@ -88,7 +88,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Current offset of the glide view
      */
-    var currentOffsetIndex: Int {
+    public var currentOffsetIndex: Int {
         get {
             if self.scrollView == nil {
                 return 0
@@ -101,7 +101,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Returns a bool for determining if the glide view isn't closed, is different than offset % 0.
      */
-    var isOpen: Bool {
+    public var isOpen: Bool {
         get {
             if self.scrollView == nil {
                 return false
@@ -114,7 +114,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Bool meant for enabling the posibility to close the glide view dragging, Default value is NO
      */
-    var disableDraggingToClose: Bool = false
+    public var disableDraggingToClose: Bool = false
     
     /**
      Initializator of the object, it requires the parent view controller to build its components
@@ -124,7 +124,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
      * @param offsets Array of offsets in % (0 to 1) dependent of Content size if not expecified UIScreen bounds.
      * @return A newly created RDGliderViewController instance
      */
-    init(parent: UIViewController, WithContent content: RDGliderContentViewController, AndType type: RDScrollViewOrientationType, WithOffsets offsets: [NSNumber]) {
+    public init(parent: UIViewController, WithContent content: RDGliderContentViewController, AndType type: RDScrollViewOrientationType, WithOffsets offsets: [NSNumber]) {
         
         super.init(nibName: nil, bundle: nil)
 
@@ -138,7 +138,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Init Disabled
      */
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -147,7 +147,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
      * @param contentViewController external ViewController placed as a content of the GlideView
      * @param type of GlideView Left to Right, Right to Left, Bottom To Top and Top to Bottom.
      * @param offsets Array of offsets in % (0 to 1) dependent of Content size if not expecified UIScreen  */
-    func setContentViewController(Content content: RDGliderContentViewController, AndType type: RDScrollViewOrientationType, WithOffsets offsets: [NSNumber]) {
+    public func setContentViewController(Content content: RDGliderContentViewController, AndType type: RDScrollViewOrientationType, WithOffsets offsets: [NSNumber]) {
 
         self.parent?.automaticallyAdjustsScrollViewInsets = false
         self.automaticallyAdjustsScrollViewInsets = false
@@ -162,7 +162,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Increase the position of the Gliver view by one in the list of offsets
      */
-    func expand() {
+    public func expand() {
         self.delegate?.glideViewControllerWillExpand(glideViewController: self)
         self.scrollView?.expandWithCompletion(completion: { (completion) in
             self.delegate?.glideViewControllerDidExpand(glideViewController: self)
@@ -172,7 +172,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      Decrease the position of the Gliver view by one in the list of offsets
      */
-    func collapse() {
+    public func collapse() {
         self.delegate?.glideViewControllerWillCollapse(glideViewController: self)
         self.scrollView?.collapseWithCompletion(completion: { (completion) in
             self.delegate?.glideViewControllerDidCollapse(glideViewController: self)
@@ -182,7 +182,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      This method moves the View directly to the first offset which is the default position.
      */
-    func close() {
+    public func close() {
         self.delegate?.glideViewControllerWillCollapse(glideViewController: self)
         self.scrollView?.closeWithCompletion(completion: { (completion) in
             self.delegate?.glideViewControllerDidCollapse(glideViewController: self)
@@ -192,7 +192,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     /**
      This method gives a shake to the Gliver view, is meant to grap users atention.
      */
-    func shake() {
+    public func shake() {
         if self.scrollView == nil {
             return
         }
@@ -232,7 +232,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
      * @param offsetIndex setNew Offset of GlideView, parameter needs to be within offsets Array count list.
      * @param animated animates the offset change
      */
-    func changeOffset(to offsetIndex: Int, animated: Bool) {
+    public func changeOffset(to offsetIndex: Int, animated: Bool) {
         if self.currentOffsetIndex < offsetIndex {
             self.delegate?.glideViewControllerWillExpand(glideViewController: self)
         }
@@ -252,21 +252,21 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     
 //MARK: - UIScrollViewDelegate
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.delegate?.glideViewController(glideViewController: self, hasChangedOffsetOfContent: scrollView.contentOffset)
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    internal func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.changeOffset(to: self.nearestOffsetIndex(to: scrollView.contentOffset), animated:false)
     }
     
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    internal func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         scrollView.setContentOffset(scrollView.contentOffset, animated: false)
     }
     
 //MARK: - private Methods
     
-    func nearestOffsetIndex(to contentOffset:CGPoint) -> Int {
+    private func nearestOffsetIndex(to contentOffset:CGPoint) -> Int {
         var index: Int = 0
         var offset: CGFloat = contentOffset.x
         var threshold: CGFloat = self.scrollView!.content!.frame.width
@@ -294,7 +294,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     
 // MARK: - Rotation event
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    internal override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
         if self.contentViewController != nil {
