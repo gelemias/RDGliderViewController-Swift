@@ -39,7 +39,6 @@
     XCTAssertFalse(self.rdScrollView.showsVerticalScrollIndicator);
     XCTAssertFalse(self.rdScrollView.showsHorizontalScrollIndicator);
     XCTAssertFalse(self.rdScrollView.bounces);
-    XCTAssertTrue(self.rdScrollView.directionalLockEnabled);
     XCTAssertFalse(self.rdScrollView.pagingEnabled);
     XCTAssertTrue(UIEdgeInsetsEqualToEdgeInsets(self.rdScrollView.contentInset, UIEdgeInsetsZero));
     XCTAssertTrue(self.rdScrollView.decelerationRate == UIScrollViewDecelerationRateFast);

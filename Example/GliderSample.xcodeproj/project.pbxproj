@@ -13,7 +13,6 @@
 		C7202A151EAF27D6006A9BDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7202A141EAF27D6006A9BDB /* Assets.xcassets */; };
 		C7202A181EAF27D6006A9BDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7202A161EAF27D6006A9BDB /* LaunchScreen.storyboard */; };
 		C7D69A6D1EB22719008711EE /* RDGliderViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D69A6C1EB22719008711EE /* RDGliderViewControllerTests.m */; };
-		C7D69A6F1EB229C3008711EE /* GliderSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D69A6E1EB229C3008711EE /* GliderSampleTests.swift */; };
 		C7EB7AF41EAF31D1000C67F7 /* RDGliderContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF31EAF31D1000C67F7 /* RDGliderContentViewController.swift */; };
 		C7EB7AF61EAF3A49000C67F7 /* RDGliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */; };
 		C7EB7AF81EAF3A60000C67F7 /* RDScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */; };
@@ -45,7 +44,6 @@
 		C7202A1E1EAF27D6006A9BDB /* GliderSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GliderSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7202A241EAF27D6006A9BDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7D69A6C1EB22719008711EE /* RDGliderViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDGliderViewControllerTests.m; sourceTree = "<group>"; };
-		C7D69A6E1EB229C3008711EE /* GliderSampleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GliderSampleTests.swift; sourceTree = "<group>"; };
 		C7EB7AF31EAF31D1000C67F7 /* RDGliderContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDGliderContentViewController.swift; sourceTree = "<group>"; };
 		C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RDGliderViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RDScrollView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -114,7 +112,6 @@
 				C7F968111EB2197300DAA49C /* RDScrollViewTests.m */,
 				C7D69A6C1EB22719008711EE /* RDGliderViewControllerTests.m */,
 				C7F968101EB2197300DAA49C /* GliderSampleTests-Bridging-Header.h */,
-				C7D69A6E1EB229C3008711EE /* GliderSampleTests.swift */,
 			);
 			path = GliderSampleTests;
 			sourceTree = "<group>";
@@ -184,6 +181,7 @@
 		C7202A021EAF27D6006A9BDB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = RD;
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Guillermo Delgado";
@@ -289,7 +287,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7D69A6F1EB229C3008711EE /* GliderSampleTests.swift in Sources */,
 				C7F968131EB2198D00DAA49C /* RDGliderContentViewController.swift in Sources */,
 				C7F968151EB2198D00DAA49C /* RDScrollView.swift in Sources */,
 				C7D69A6D1EB22719008711EE /* RDGliderViewControllerTests.m in Sources */,
@@ -463,7 +460,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -485,7 +481,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				HEADER_SEARCH_PATHS = (

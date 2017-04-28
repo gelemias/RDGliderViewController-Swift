@@ -9,11 +9,10 @@
 #import <XCTest/XCTest.h>
 #import "GliderSampleTests-Swift.h"
 
-@interface RDGliderViewController ()
+@interface RDGliderViewController (Test)
 
 @property (nonatomic) RDScrollView *scrollView;
-
-- (NSUInteger)nearestOffsetIndexTo:(CGPoint)contentOffset;
+- (NSInteger)nearestOffsetIndexTo:(CGPoint)contentOffset;
 
 @end
 
@@ -50,9 +49,9 @@
     XCTAssertThrows([self.gliderVC setOffsets:@[]]);
     
     [self.gliderVC setOffsets:@[@0, @0.5, @1]];
+    
     XCTAssertTrue(self.gliderVC.marginOffset == self.gliderVC.scrollView.margin);
 
-    
     self.gliderVC.scrollView = nil;
     XCTAssertThrows([self.gliderVC setOffsets:@[@0]]);
     XCTAssertThrows([self.gliderVC offsets]);

@@ -50,6 +50,11 @@ import UIKit
     private var _offsets: [NSNumber] = []
     public var offsets: [NSNumber] {
         set {
+            if newValue.count == 0 {
+                NSException(name:NSExceptionName(rawValue: "Invalid offset array"),
+                            reason:"offsets array cannot be nil nor empty").raise()
+            }
+            
             let clearOffsets: [NSNumber] = NSOrderedSet.init(array: newValue).array as! [NSNumber]
             let reversedOffsets: NSMutableArray = []
             
@@ -193,21 +198,28 @@ import UIKit
                        initialSpringVelocity: CGFloat(self.velocity),
                        options: .curveEaseOut,
                        animations: {() -> Void in
-                        
-            self.content?.isHidden = false
-            if self.orientationType == .RDScrollViewOrientationLeftToRight {
-                let margin: Float = (offsetIndex == 0 || offsetIndex == Int(self.offsets.count - 1)) ? self.margin : Float(0.0)
-                self.setContentOffset(CGPoint.init(x: ((CGFloat(self.offsets[Int(offsetIndex)]) * self.content!.frame.width) + CGFloat(margin)), y: CGFloat(self.contentOffset.y)), animated: animated)
+                     
+            if self.content == nil || self.offsets.count == 0 {
+                
+                self.setContentOffset(CGPoint.zero, animated: animated)
             }
-            else if self.orientationType == .RDScrollViewOrientationRightToLeft {
-                self.setContentOffset(CGPoint(x: CGFloat(self.offsets[Int(offsetIndex)]) * self.content!.frame.width, y: CGFloat(self.contentOffset.y)), animated: animated)
-            }
-            else if self.orientationType == .RDScrollViewOrientationBottomToTop {
-                self.setContentOffset(CGPoint(x: CGFloat(self.contentOffset.x), y: (CGFloat(self.offsets[Int(offsetIndex)]) * CGFloat(self.content!.frame.height))), animated: animated)
-            }
-            else if self.orientationType == .RDScrollViewOrientationTopToBottom {
-                let margin: Float = (offsetIndex == 0 || Int(offsetIndex) == self.offsets.count - 1) ? self.margin : Float(0.0)
-                self.setContentOffset(CGPoint(x: CGFloat(self.contentOffset.x), y: (CGFloat(self.offsets[Int(offsetIndex)]) * CGFloat(self.content!.frame.height)) + CGFloat(margin)), animated: animated)
+            else {
+            
+                self.content?.isHidden = false
+                if self.orientationType == .RDScrollViewOrientationLeftToRight {
+                    let margin: Float = (offsetIndex == 0 || offsetIndex == Int(self.offsets.count - 1)) ? self.margin : Float(0.0)
+                    self.setContentOffset(CGPoint.init(x: ((CGFloat(self.offsets[Int(offsetIndex)]) * self.content!.frame.width) + CGFloat(margin)), y: CGFloat(self.contentOffset.y)), animated: animated)
+                }
+                else if self.orientationType == .RDScrollViewOrientationRightToLeft {
+                    self.setContentOffset(CGPoint(x: CGFloat(self.offsets[Int(offsetIndex)]) * self.content!.frame.width, y: CGFloat(self.contentOffset.y)), animated: animated)
+                }
+                else if self.orientationType == .RDScrollViewOrientationBottomToTop {
+                    self.setContentOffset(CGPoint(x: CGFloat(self.contentOffset.x), y: (CGFloat(self.offsets[Int(offsetIndex)]) * CGFloat(self.content!.frame.height))), animated: animated)
+                }
+                else if self.orientationType == .RDScrollViewOrientationTopToBottom {
+                    let margin: Float = (offsetIndex == 0 || Int(offsetIndex) == self.offsets.count - 1) ? self.margin : Float(0.0)
+                    self.setContentOffset(CGPoint(x: CGFloat(self.contentOffset.x), y: (CGFloat(self.offsets[Int(offsetIndex)]) * CGFloat(self.content!.frame.height)) + CGFloat(margin)), animated: animated)
+                }
             }
             
         }, completion: {(_ finished: Bool) -> Void in
