@@ -12,11 +12,15 @@
 		C7202A131EAF27D6006A9BDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7202A111EAF27D6006A9BDB /* Main.storyboard */; };
 		C7202A151EAF27D6006A9BDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7202A141EAF27D6006A9BDB /* Assets.xcassets */; };
 		C7202A181EAF27D6006A9BDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7202A161EAF27D6006A9BDB /* LaunchScreen.storyboard */; };
-		C7202A231EAF27D6006A9BDB /* GliderSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7202A221EAF27D6006A9BDB /* GliderSampleTests.swift */; };
+		C7D69A6D1EB22719008711EE /* RDGliderViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D69A6C1EB22719008711EE /* RDGliderViewControllerTests.m */; };
 		C7EB7AF41EAF31D1000C67F7 /* RDGliderContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF31EAF31D1000C67F7 /* RDGliderContentViewController.swift */; };
 		C7EB7AF61EAF3A49000C67F7 /* RDGliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */; };
 		C7EB7AF81EAF3A60000C67F7 /* RDScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */; };
 		C7EB7AFB1EAF3AB2000C67F7 /* RDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AFA1EAF3AB2000C67F7 /* RDButton.swift */; };
+		C7F968121EB2197300DAA49C /* RDScrollViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F968111EB2197300DAA49C /* RDScrollViewTests.m */; };
+		C7F968131EB2198D00DAA49C /* RDGliderContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF31EAF31D1000C67F7 /* RDGliderContentViewController.swift */; };
+		C7F968141EB2198D00DAA49C /* RDGliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */; };
+		C7F968151EB2198D00DAA49C /* RDScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,12 +42,15 @@
 		C7202A171EAF27D6006A9BDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7202A191EAF27D6006A9BDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7202A1E1EAF27D6006A9BDB /* GliderSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GliderSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C7202A221EAF27D6006A9BDB /* GliderSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderSampleTests.swift; sourceTree = "<group>"; };
 		C7202A241EAF27D6006A9BDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7D69A6C1EB22719008711EE /* RDGliderViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDGliderViewControllerTests.m; sourceTree = "<group>"; };
 		C7EB7AF31EAF31D1000C67F7 /* RDGliderContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDGliderContentViewController.swift; sourceTree = "<group>"; };
 		C7EB7AF51EAF3A49000C67F7 /* RDGliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RDGliderViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C7EB7AF71EAF3A60000C67F7 /* RDScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RDScrollView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C7EB7AFA1EAF3AB2000C67F7 /* RDButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RDButton.swift; sourceTree = "<group>"; };
+		C7F968101EB2197300DAA49C /* GliderSampleTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GliderSampleTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		C7F968111EB2197300DAA49C /* RDScrollViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDScrollViewTests.m; sourceTree = "<group>"; };
+		C7F968161EB219C700DAA49C /* GliderSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GliderSample-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +100,7 @@
 				C7202A141EAF27D6006A9BDB /* Assets.xcassets */,
 				C7202A161EAF27D6006A9BDB /* LaunchScreen.storyboard */,
 				C7202A191EAF27D6006A9BDB /* Info.plist */,
+				C7F968161EB219C700DAA49C /* GliderSample-Bridging-Header.h */,
 			);
 			path = GliderSample;
 			sourceTree = "<group>";
@@ -100,8 +108,10 @@
 		C7202A211EAF27D6006A9BDB /* GliderSampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				C7202A221EAF27D6006A9BDB /* GliderSampleTests.swift */,
 				C7202A241EAF27D6006A9BDB /* Info.plist */,
+				C7F968111EB2197300DAA49C /* RDScrollViewTests.m */,
+				C7D69A6C1EB22719008711EE /* RDGliderViewControllerTests.m */,
+				C7F968101EB2197300DAA49C /* GliderSampleTests-Bridging-Header.h */,
 			);
 			path = GliderSampleTests;
 			sourceTree = "<group>";
@@ -171,16 +181,19 @@
 		C7202A021EAF27D6006A9BDB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = RD;
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Guillermo Delgado";
 				TargetAttributes = {
 					C7202A091EAF27D6006A9BDB = {
 						CreatedOnToolsVersion = 8.3.1;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					C7202A1D1EAF27D6006A9BDB = {
 						CreatedOnToolsVersion = 8.3.1;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = C7202A091EAF27D6006A9BDB;
 					};
@@ -274,7 +287,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7202A231EAF27D6006A9BDB /* GliderSampleTests.swift in Sources */,
+				C7F968131EB2198D00DAA49C /* RDGliderContentViewController.swift in Sources */,
+				C7F968151EB2198D00DAA49C /* RDScrollView.swift in Sources */,
+				C7D69A6D1EB22719008711EE /* RDGliderViewControllerTests.m in Sources */,
+				C7F968121EB2197300DAA49C /* RDScrollViewTests.m in Sources */,
+				C7F968141EB2198D00DAA49C /* RDGliderViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,12 +424,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = GliderSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GliderSample/GliderSample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -421,12 +442,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = GliderSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GliderSample/GliderSample-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -435,11 +459,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources\"\n\n\"$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources\"",
+				);
 				INFOPLIST_FILE = GliderSampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GliderSampleTests/GliderSampleTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GliderSample.app/GliderSample";
 			};
@@ -449,11 +480,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources\"\n\n\"$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources\"",
+				);
 				INFOPLIST_FILE = GliderSampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GliderSampleTests/GliderSampleTests-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GliderSample.app/GliderSample";
 			};

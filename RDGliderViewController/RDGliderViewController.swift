@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol RDGliderViewControllerDelegate {
+@objc protocol RDGliderViewControllerDelegate {
     /**
      Delegate method to notify invoke object when offset has changed
      */
@@ -35,11 +35,11 @@ protocol RDGliderViewControllerDelegate {
     func glideViewControllerDidCollapse(glideViewController: RDGliderViewController)
 }
 
-class RDGliderViewController: UIViewController, UIScrollViewDelegate {
+@objc class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     
     public var delegate: RDGliderViewControllerDelegate?
     
-    private var scrollView: RDScrollView?
+    internal var scrollView: RDScrollView?
     
     /**
      Content view Controller hosted on the scrollView
@@ -51,7 +51,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
      */
     public var marginOffset: Float {
         get {
-            return (self.scrollView?.margin)!
+            return self.scrollView != nil ? self.scrollView!.margin : 0.0
         }
         
         set {
@@ -64,11 +64,26 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
      */
     public var offsets: [NSNumber] {
         get {
+            if self.scrollView == nil {
+                NSException(name:NSExceptionName(rawValue: "Internal Inconsistency"),
+                            reason:"RDGliderViewController have to instantiate first on a viewController").raise()
+            }
+            
             return (self.scrollView?.offsets)!
         }
         
         set {
-            self.scrollView?.offsets = newValue
+            if newValue.count > 0  {
+                if self.scrollView == nil {
+                    NSException(name:NSExceptionName(rawValue: "Internal Inconsistency"),
+                                reason:"RDGliderViewController have to instantiate first on a viewController").raise()
+                }
+                self.scrollView?.offsets = newValue
+            }
+            else {
+                NSException(name:NSExceptionName(rawValue: "Invalid offsets"),
+                            reason:"Array of offsets cannot be Zero").raise()
+            }
         }
     }
     
@@ -144,10 +159,17 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     
     /**
      Change contentViewController type and offsets after the VC has been initialized.
-     * @param contentViewController external ViewController placed as a content of the GlideView
+     * @param content external ViewController placed as a content of the GlideView
      * @param type of GlideView Left to Right, Right to Left, Bottom To Top and Top to Bottom.
      * @param offsets Array of offsets in % (0 to 1) dependent of Content size if not expecified UIScreen  */
     public func setContentViewController(Content content: RDGliderContentViewController, AndType type: RDScrollViewOrientationType, WithOffsets offsets: [NSNumber]) {
+        
+        let checkContent: RDGliderContentViewController? = content
+        if checkContent == nil {
+            NSException(name:NSExceptionName(rawValue: "Invalid RDGliderContentViewController value"),
+                        reason:"RDGliderContentViewController cannot be nil").raise()
+
+        }
 
         self.parent?.automaticallyAdjustsScrollViewInsets = false
         self.automaticallyAdjustsScrollViewInsets = false
@@ -266,7 +288,7 @@ class RDGliderViewController: UIViewController, UIScrollViewDelegate {
     
 //MARK: - private Methods
     
-    private func nearestOffsetIndex(to contentOffset:CGPoint) -> Int {
+    internal func nearestOffsetIndex(to contentOffset:CGPoint) -> Int {
         var index: Int = 0
         var offset: CGFloat = contentOffset.x
         var threshold: CGFloat = self.scrollView!.content!.frame.width
