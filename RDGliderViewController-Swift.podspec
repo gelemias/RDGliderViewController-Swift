@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RDGliderViewController-Swift'
-  s.version          = '0.1.68'
+  s.version          = '0.1.12'
   s.summary          = 'Control for a draggable ViewController gliding over another ViewController.'
 
 # This description is used to generate tags and improve search results.
