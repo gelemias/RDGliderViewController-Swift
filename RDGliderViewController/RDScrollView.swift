@@ -6,7 +6,10 @@
 //  Copyright © 2017 Guillermo Delgado. All rights reserved.
 //
 
+// swiftlint:disable function_body_length
+
 import UIKit
+
 
 @objc public enum RDScrollViewOrientationType: Int {
 
@@ -26,21 +29,15 @@ import UIKit
     /**
      Draggable content
      */
-    var _content : UIView?
-    var content : UIView? {
-        set {
-            _content = newValue
-            self.addContent(content: _content!)
-        }
-
-        get {
-           return _content
+    var content: UIView? {
+        didSet {
+            self.addContent(content: self.content!)
         }
     }
 
     /**
      Orientation for draggable container.
-     Default value : RDScrollViewOrientationLeftToRight
+     Default value: RDScrollViewOrientationLeftToRight
      */
     public var orientationType: RDScrollViewOrientationType = .RDScrollViewOrientationRightToLeft
 
@@ -51,29 +48,29 @@ import UIKit
     public var offsets: [NSNumber] {
         set {
             if newValue.count == 0 {
-                NSException(name:NSExceptionName(rawValue: "Invalid offset array"),
+                NSException(name: NSExceptionName(rawValue: "Invalid offset array"),
                             reason:"offsets array cannot be nil nor empty").raise()
             }
 
-            let clearOffsets: [NSNumber] = NSOrderedSet.init(array: newValue).array as! [NSNumber]
-            let reversedOffsets: NSMutableArray = []
+            let clearOffsets: [NSNumber] = (NSOrderedSet.init(array: newValue).array as? [NSNumber])!
+            var reversedOffsets = [NSNumber]()
 
             for number: NSNumber in clearOffsets {
-                if ( number.floatValue < 0.0 || 1.0 < number.floatValue) {
+                if number.floatValue < 0.0 || 1.0 < number.floatValue {
                     let m = "offset represents a %% of content to be shown, 0.5 of a content of 100px will show 50px"
-                    NSException(name:NSExceptionName(rawValue: "Invalid offset value"), reason:m).raise()
+                    NSException(name: NSExceptionName(rawValue: "Invalid offset value"), reason: m).raise()
                 }
 
                 if self.orientationType == .RDScrollViewOrientationTopToBottom ||
                         self.orientationType == .RDScrollViewOrientationLeftToRight {
-                    reversedOffsets.add(NSNumber.init(value: Float(1 - number.floatValue)))
+                    reversedOffsets.append(NSNumber.init(value: Float(1 - number.floatValue)))
                 }
             }
 
             var newOffsets: [NSNumber] = clearOffsets.sorted { $0.floatValue < $1.floatValue }
 
-            if (reversedOffsets.count > 0) {
-                newOffsets = reversedOffsets as! [NSNumber]
+            if reversedOffsets.count > 0 {
+                newOffsets = reversedOffsets
                 newOffsets = newOffsets.sorted { $0.floatValue < $1.floatValue }.reversed()
             }
 
@@ -104,10 +101,10 @@ import UIKit
         set {
             _margin = newValue
 
-            if (self.orientationType == .RDScrollViewOrientationTopToBottom) {
+            if self.orientationType == .RDScrollViewOrientationTopToBottom {
                 self.topToBottomTopContraint?.constant = CGFloat(_margin)
-            }
-            else if (self.orientationType == .RDScrollViewOrientationLeftToRight) {
+
+            } else if self.orientationType == .RDScrollViewOrientationLeftToRight {
                 self.leftToRightLeadingContraint?.constant = CGFloat(_margin)
             }
 
@@ -164,25 +161,22 @@ import UIKit
      */
     func recalculateContentSize() {
 
-        if (self.content == nil || self.offsets.isEmpty) {
-            return;
+        if self.content == nil || self.offsets.isEmpty {
+            return
         }
 
         var size: CGSize = CGSize.zero
 
-        if (self.orientationType == .RDScrollViewOrientationBottomToTop) {
+        if self.orientationType == .RDScrollViewOrientationBottomToTop {
             size.height = self.frame.height + (self.content!.frame.height * CGFloat(self.offsets.last!.floatValue)) +
                 CGFloat(self.margin)
-        }
-        else if (self.orientationType == .RDScrollViewOrientationTopToBottom){
+        } else if self.orientationType == .RDScrollViewOrientationTopToBottom {
             size.height = self.frame.height + (self.content!.frame.height * CGFloat(self.offsets.first!.floatValue)) +
                 CGFloat(self.margin)
-        }
-        else if (self.orientationType == .RDScrollViewOrientationRightToLeft) {
+        } else if self.orientationType == .RDScrollViewOrientationRightToLeft {
             size.width = self.frame.width + (self.content!.frame.width * CGFloat(self.offsets.last!.floatValue)) +
                 CGFloat(self.margin)
-        }
-        else if (self.orientationType == .RDScrollViewOrientationLeftToRight) {
+        } else if self.orientationType == .RDScrollViewOrientationLeftToRight {
             size.width = self.frame.width + (self.content!.frame.width * CGFloat(self.offsets.first!.floatValue)) +
                 CGFloat(self.margin)
         }
@@ -192,7 +186,7 @@ import UIKit
     }
 
     // Methods to Increase or decrease offset of content within RDScrollView.
-    func changeOffsetTo(offsetIndex: Int, animated: Bool, completion: ((Bool) -> ())?) {
+    func changeOffsetTo(offsetIndex: Int, animated: Bool, completion: ((Bool) -> Void)?) {
 
         panGestureRecognizer.isEnabled = false
         UIView.animate(withDuration: TimeInterval(self.duration),
@@ -205,31 +199,29 @@ import UIKit
             if self.content == nil || self.offsets.count == 0 {
 
                 self.setContentOffset(CGPoint.zero, animated: animated)
-            }
-            else {
+            } else {
 
                 self.content?.isHidden = false
                 if self.orientationType == .RDScrollViewOrientationLeftToRight {
                     let margin: Float = (offsetIndex == 0 || offsetIndex == Int(self.offsets.count - 1)) ?
-                        self.margin : Float(0.0)
+                        self.margin: Float(0.0)
                     self.setContentOffset(CGPoint.init(x: ((CGFloat(self.offsets[Int(offsetIndex)]) *
                         self.content!.frame.width) + CGFloat(margin)),
                                                        y: CGFloat(self.contentOffset.y)), animated: animated)
-                }
-                else if self.orientationType == .RDScrollViewOrientationRightToLeft {
+
+                } else if self.orientationType == .RDScrollViewOrientationRightToLeft {
                     self.setContentOffset(CGPoint(x: CGFloat(self.offsets[Int(offsetIndex)]) *
-                        self.content!.frame.width,
-                                                  y: CGFloat(self.contentOffset.y)), animated: animated)
-                }
-                else if self.orientationType == .RDScrollViewOrientationBottomToTop {
+                        self.content!.frame.width, y: CGFloat(self.contentOffset.y)), animated: animated)
+
+                } else if self.orientationType == .RDScrollViewOrientationBottomToTop {
                     self.setContentOffset(CGPoint(x: CGFloat(self.contentOffset.x),
                                                   y: (CGFloat(self.offsets[Int(offsetIndex)]) *
                                                     CGFloat(self.content!.frame.height))),
                                           animated: animated)
-                }
-                else if self.orientationType == .RDScrollViewOrientationTopToBottom {
+
+                } else if self.orientationType == .RDScrollViewOrientationTopToBottom {
                     let margin: Float = (offsetIndex == 0 || Int(offsetIndex) == self.offsets.count - 1) ?
-                                        self.margin : Float(0.0)
+                                        self.margin: Float(0.0)
                     self.setContentOffset(CGPoint(x: CGFloat(self.contentOffset.x),
                                                   y: (CGFloat(self.offsets[Int(offsetIndex)]) *
                                                     CGFloat(self.content!.frame.height)) + CGFloat(margin)),
@@ -241,9 +233,9 @@ import UIKit
             self.offsetIndex = offsetIndex
             if self.orientationType == .RDScrollViewOrientationLeftToRight ||
                self.orientationType == .RDScrollViewOrientationTopToBottom {
-                self.isOpen = self.offsets[Int(offsetIndex)].floatValue == 1 ? false : true
+                self.isOpen = self.offsets[Int(offsetIndex)].floatValue == 1 ? false: true
             } else {
-                self.isOpen = self.offsets[Int(offsetIndex)].floatValue == 0 ? false : true
+                self.isOpen = self.offsets[Int(offsetIndex)].floatValue == 0 ? false: true
             }
 
             self.content?.isHidden = !self.isOpen
@@ -253,17 +245,17 @@ import UIKit
         })
     }
 
-    func expandWithCompletion(completion: ((Bool) -> ())?) {
-        let nextIndex: Int = self.offsetIndex + 1 < Int(self.offsets.count) ? self.offsetIndex + 1 : self.offsetIndex
+    func expandWithCompletion(completion: ((Bool) -> Void)?) {
+        let nextIndex: Int = self.offsetIndex + 1 < Int(self.offsets.count) ? self.offsetIndex + 1: self.offsetIndex
         self.changeOffsetTo(offsetIndex: nextIndex, animated: false, completion: completion)
     }
 
-    func collapseWithCompletion(completion: ((Bool) -> ())?) {
-        let nextIndex: Int = self.offsetIndex == 0 ? 0 : self.offsetIndex - 1
+    func collapseWithCompletion(completion: ((Bool) -> Void)?) {
+        let nextIndex: Int = self.offsetIndex == 0 ? 0: self.offsetIndex - 1
         self.changeOffsetTo(offsetIndex: nextIndex, animated: false, completion: completion)
     }
 
-    func closeWithCompletion(completion: ((Bool) -> ())?) {
+    func closeWithCompletion(completion: ((Bool) -> Void)?) {
         self.changeOffsetTo(offsetIndex: 0, animated: false, completion: completion)
     }
 
@@ -320,24 +312,23 @@ import UIKit
                                                   constant: 0.0)])
 
             if content.frame.isEmpty {
-                self.addConstraints([NSLayoutConstraint(item: content, attribute: .width,  relatedBy: .equal,
+                self.addConstraints([NSLayoutConstraint(item: content, attribute: .width, relatedBy: .equal,
                                                       toItem: self, attribute: .width, multiplier: 1.0,
                                                       constant: 0.0),
-                                     NSLayoutConstraint(item: container, attribute: .width,  relatedBy: .equal,
+                                     NSLayoutConstraint(item: container, attribute: .width, relatedBy: .equal,
                                                       toItem: self, attribute: .width, multiplier: 2.0,
                                                       constant: 0.0)])
             } else {
-  
-                container.addConstraints([NSLayoutConstraint(item: content, attribute: .width,  relatedBy: .equal,
+
+                container.addConstraints([NSLayoutConstraint(item: content, attribute: .width, relatedBy: .equal,
                                                            toItem: nil, attribute: .notAnAttribute, multiplier: 1.0,
                                                            constant: content.frame.width)])
 
-                self.addConstraints([NSLayoutConstraint(item: container, attribute: .width,  relatedBy: .equal,
+                self.addConstraints([NSLayoutConstraint(item: container, attribute: .width, relatedBy: .equal,
                                                       toItem: self, attribute: .width, multiplier: 1.0,
                                                       constant: content.frame.width)])
             }
-        }
-        else if self.orientationType == .RDScrollViewOrientationLeftToRight {
+        } else if self.orientationType == .RDScrollViewOrientationLeftToRight {
 
             self.leftToRightLeadingContraint = NSLayoutConstraint(item: content, attribute: .leading, relatedBy: .equal,
                                                                 toItem: container, attribute: .leading, multiplier: 1.0,
@@ -362,24 +353,23 @@ import UIKit
                                                   constant: 0.0)])
 
             if content.frame.isEmpty {
-                self.addConstraints([NSLayoutConstraint(item: content, attribute: .width,  relatedBy: .equal,
+                self.addConstraints([NSLayoutConstraint(item: content, attribute: .width, relatedBy: .equal,
                                                       toItem: self, attribute: .width, multiplier: 1.0,
                                                       constant: 0.0),
-                                     NSLayoutConstraint(item: container, attribute: .width,  relatedBy: .equal,
+                                     NSLayoutConstraint(item: container, attribute: .width, relatedBy: .equal,
                                                       toItem: self, attribute: .width, multiplier: 2.0,
                                                       constant: 0.0)])
             } else {
 
-                container.addConstraints([NSLayoutConstraint(item: content, attribute: .width,  relatedBy: .equal,
+                container.addConstraints([NSLayoutConstraint(item: content, attribute: .width, relatedBy: .equal,
                                                            toItem: nil, attribute: .notAnAttribute, multiplier: 1.0,
                                                            constant: content.frame.width)])
 
-                self.addConstraints([NSLayoutConstraint(item: container, attribute: .width,  relatedBy: .equal,
+                self.addConstraints([NSLayoutConstraint(item: container, attribute: .width, relatedBy: .equal,
                                                       toItem: self, attribute: .width, multiplier: 1.0,
                                                       constant: content.frame.width)])
             }
-        }
-        else if self.orientationType == .RDScrollViewOrientationBottomToTop {
+        } else if self.orientationType == .RDScrollViewOrientationBottomToTop {
 
             container.addConstraints([NSLayoutConstraint(item: content, attribute: .leading, relatedBy: .equal,
                                                        toItem: container, attribute: .leading, multiplier: 1.0,
@@ -402,24 +392,23 @@ import UIKit
                                                   constant: 0.0)])
 
             if content.frame.isEmpty {
-                self.addConstraints([NSLayoutConstraint(item: content, attribute: .height,  relatedBy: .equal,
+                self.addConstraints([NSLayoutConstraint(item: content, attribute: .height, relatedBy: .equal,
                                                       toItem: self, attribute: .height, multiplier: 1.0,
                                                       constant: 0.0),
-                                     NSLayoutConstraint(item: container, attribute: .height,  relatedBy: .equal,
+                                     NSLayoutConstraint(item: container, attribute: .height, relatedBy: .equal,
                                                       toItem: self, attribute: .height, multiplier: 2.0,
                                                       constant: 0.0)])
             } else {
 
-                container.addConstraints([NSLayoutConstraint(item: content, attribute: .height,  relatedBy: .equal,
+                container.addConstraints([NSLayoutConstraint(item: content, attribute: .height, relatedBy: .equal,
                                                            toItem: nil, attribute: .notAnAttribute, multiplier: 1.0,
                                                            constant: content.frame.height)])
 
-                self.addConstraints([NSLayoutConstraint(item: container, attribute: .height,  relatedBy: .equal,
+                self.addConstraints([NSLayoutConstraint(item: container, attribute: .height, relatedBy: .equal,
                                                       toItem: self, attribute: .height, multiplier: 1.0,
                                                       constant: content.frame.height)])
             }
-        }
-        else if self.orientationType == .RDScrollViewOrientationTopToBottom {
+        } else if self.orientationType == .RDScrollViewOrientationTopToBottom {
 
             self.topToBottomTopContraint = NSLayoutConstraint(item: content, attribute: .top, relatedBy: .equal,
                                                             toItem: container, attribute: .top, multiplier: 1.0,
@@ -444,20 +433,20 @@ import UIKit
                                                   constant: 0.0)])
 
             if content.frame.isEmpty {
-                self.addConstraints([NSLayoutConstraint(item: content, attribute: .height,  relatedBy: .equal,
+                self.addConstraints([NSLayoutConstraint(item: content, attribute: .height, relatedBy: .equal,
                                                       toItem: self, attribute: .height, multiplier: 1.0,
                                                       constant: 0.0),
-                                     NSLayoutConstraint(item: container, attribute: .height,  relatedBy: .equal,
+                                     NSLayoutConstraint(item: container, attribute: .height, relatedBy: .equal,
                                                       toItem: self, attribute: .height, multiplier: 2.0,
                                                       constant: 0.0)])
             } else {
 
-                container.addConstraints([NSLayoutConstraint(item: content, attribute: .height,  relatedBy: .equal,
-                                                           toItem: nil,     attribute: .notAnAttribute,
+                container.addConstraints([NSLayoutConstraint(item: content, attribute: .height, relatedBy: .equal,
+                                                           toItem: nil, attribute: .notAnAttribute,
                                                            multiplier: 1.0, constant: content.frame.height)])
 
-                self.addConstraints([NSLayoutConstraint(item: container, attribute: .height,  relatedBy: .equal,
-                                                      toItem: self,      attribute: .height,
+                self.addConstraints([NSLayoutConstraint(item: container, attribute: .height, relatedBy: .equal,
+                                                      toItem: self, attribute: .height,
                                                       multiplier: 1.0, constant: content.frame.height)])
             }
         }

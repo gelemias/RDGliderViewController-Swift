@@ -8,6 +8,8 @@
 
 import UIKit
 
+// swiftlint:disable identifier_name
+
 class RDGliderContentViewController: UIViewController {
 
     var _showShadow: Bool = false
@@ -15,7 +17,7 @@ class RDGliderContentViewController: UIViewController {
         set {
             _showShadow = newValue
 
-            if (_showShadow) {
+            if _showShadow {
                 self.view.layer.shadowColor = UIColor.black.cgColor
                 self.view.layer.shadowOpacity = 0.5
                 self.view.layer.shadowRadius = 5.0

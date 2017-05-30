@@ -37,7 +37,7 @@ import UIKit
 
 @objc class RDGliderViewController: UIViewController, UIScrollViewDelegate {
 
-    public var delegate: RDGliderViewControllerDelegate?
+    public weak var delegate: RDGliderViewControllerDelegate?
 
     internal var scrollView: RDScrollView?
 
@@ -51,7 +51,7 @@ import UIKit
      */
     public var marginOffset: Float {
         get {
-            return self.scrollView != nil ? self.scrollView!.margin : 0.0
+            return self.scrollView != nil ? self.scrollView!.margin: 0.0
         }
 
         set {
@@ -73,14 +73,13 @@ import UIKit
         }
 
         set {
-            if newValue.count > 0  {
+            if newValue.count > 0 {
                 if self.scrollView == nil {
                     NSException(name:NSExceptionName(rawValue: "Internal Inconsistency"),
                                 reason:"RDGliderViewController have to instantiate first on a viewController").raise()
                 }
                 self.scrollView?.offsets = newValue
-            }
-            else {
+            } else {
                 NSException(name:NSExceptionName(rawValue: "Invalid offsets"),
                             reason:"Array of offsets cannot be Zero").raise()
             }
@@ -98,6 +97,7 @@ import UIKit
 
             return self.scrollView!.orientationType
         }
+        set { }
     }
 
     /**
@@ -111,6 +111,7 @@ import UIKit
 
             return self.scrollView!.offsetIndex
         }
+        set { }
     }
 
     /**
@@ -124,6 +125,7 @@ import UIKit
 
             return self.scrollView!.isOpen
         }
+        set { }
     }
 
     /**
@@ -189,7 +191,7 @@ import UIKit
      */
     public func expand() {
         self.delegate?.glideViewControllerWillExpand(glideViewController: self)
-        self.scrollView?.expandWithCompletion(completion: { (completion) in
+        self.scrollView?.expandWithCompletion(completion: { (_) in
             self.delegate?.glideViewControllerDidExpand(glideViewController: self)
         })
     }
@@ -199,7 +201,7 @@ import UIKit
      */
     public func collapse() {
         self.delegate?.glideViewControllerWillCollapse(glideViewController: self)
-        self.scrollView?.collapseWithCompletion(completion: { (completion) in
+        self.scrollView?.collapseWithCompletion(completion: { (_) in
             self.delegate?.glideViewControllerDidCollapse(glideViewController: self)
         })
     }
@@ -209,7 +211,7 @@ import UIKit
      */
     public func close() {
         self.delegate?.glideViewControllerWillCollapse(glideViewController: self)
-        self.scrollView?.closeWithCompletion(completion: { (completion) in
+        self.scrollView?.closeWithCompletion(completion: { (_) in
             self.delegate?.glideViewControllerDidCollapse(glideViewController: self)
         })
     }
@@ -234,18 +236,18 @@ import UIKit
             animation.fromValue = NSValue.init(cgPoint: self.scrollView!.center)
             animation.toValue = NSValue.init(cgPoint: CGPoint.init(x: self.scrollView!.center.x + shakeMargin,
                                                                    y: self.scrollView!.center.y))
-        }
-        else if self.orientationType == .RDScrollViewOrientationLeftToRight {
+
+        } else if self.orientationType == .RDScrollViewOrientationLeftToRight {
             animation.fromValue = NSValue.init(cgPoint: self.scrollView!.center)
             animation.toValue = NSValue.init(cgPoint: CGPoint.init(x: self.scrollView!.center.x - shakeMargin,
                                                                    y: self.scrollView!.center.y))
-        }
-        else if self.orientationType == .RDScrollViewOrientationBottomToTop {
+
+        } else if self.orientationType == .RDScrollViewOrientationBottomToTop {
             animation.fromValue = NSValue.init(cgPoint: self.scrollView!.center)
             animation.toValue = NSValue.init(cgPoint: CGPoint.init(x: self.scrollView!.center.x,
                                                                    y: self.scrollView!.center.y + shakeMargin))
-        }
-        else if self.orientationType == .RDScrollViewOrientationTopToBottom {
+
+        } else if self.orientationType == .RDScrollViewOrientationTopToBottom {
             animation.fromValue = NSValue.init(cgPoint: self.scrollView!.center)
             animation.toValue = NSValue.init(cgPoint: CGPoint.init(x: self.scrollView!.center.x,
                                                                    y: self.scrollView!.center.y - shakeMargin))
@@ -262,22 +264,22 @@ import UIKit
     public func changeOffset(to offsetIndex: Int, animated: Bool) {
         if self.currentOffsetIndex < offsetIndex {
             self.delegate?.glideViewControllerWillExpand(glideViewController: self)
-        }
-        else if offsetIndex < self.currentOffsetIndex {
+
+        } else if offsetIndex < self.currentOffsetIndex {
             self.delegate?.glideViewControllerWillCollapse(glideViewController: self)
         }
 
-        self.scrollView?.changeOffsetTo(offsetIndex: offsetIndex, animated: animated, completion: { (completion) in
+        self.scrollView?.changeOffsetTo(offsetIndex: offsetIndex, animated: animated, completion: { (_) in
             if self.currentOffsetIndex < offsetIndex {
                 self.delegate?.glideViewControllerDidExpand(glideViewController: self)
-            }
-            else {
+
+            } else {
                 self.delegate?.glideViewControllerDidCollapse(glideViewController: self)
             }
         })
     }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 
     internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.delegate?.glideViewController(glideViewController: self,
@@ -292,15 +294,15 @@ import UIKit
         scrollView.setContentOffset(scrollView.contentOffset, animated: false)
     }
 
-//MARK: - private Methods
+// MARK: - private Methods
 
-    internal func nearestOffsetIndex(to contentOffset:CGPoint) -> Int {
+    internal func nearestOffsetIndex(to contentOffset: CGPoint) -> Int {
         var index: Int = 0
         var offset: CGFloat = contentOffset.x
         var threshold: CGFloat = self.scrollView!.content!.frame.width
 
-        if (self.orientationType == .RDScrollViewOrientationBottomToTop ||
-            self.orientationType == .RDScrollViewOrientationTopToBottom) {
+        if self.orientationType == .RDScrollViewOrientationBottomToTop ||
+            self.orientationType == .RDScrollViewOrientationTopToBottom {
             offset = contentOffset.y
             threshold = self.scrollView!.content!.frame.height
         }
@@ -310,14 +312,14 @@ import UIKit
         for i in 0..<self.offsets.count {
             let transformedOffset: CGFloat = CGFloat(self.scrollView!.offsets[i].floatValue) * threshold
             let distToAnchor: CGFloat = fabs(offset - transformedOffset)
-            if (distToAnchor < distance) {
+            if distToAnchor < distance {
                 distance = distToAnchor
                 index = i
             }
 
         }
 
-        return (index == 0 && self.disableDraggingToClose) ? 1 : index
+        return (index == 0 && self.disableDraggingToClose) ? 1: index
     }
 
 // MARK: - Rotation event
@@ -330,9 +332,9 @@ import UIKit
             self.contentViewController!.viewWillTransition(to: size, with: coordinator)
         }
 
-        coordinator.animate(alongsideTransition: { ctx in
+        coordinator.animate(alongsideTransition: { _ in
             self.changeOffset(to: self.currentOffsetIndex, animated: true)
-        }) { ctx in
+        }) { _ in
             self.scrollView!.recalculateContentSize()
         }
     }

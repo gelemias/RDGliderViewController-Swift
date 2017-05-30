@@ -15,7 +15,7 @@
 
 @end
 
-@interface RDScrollViewTests : XCTestCase
+@interface RDScrollViewTests: XCTestCase
 
 @property (nonatomic) RDScrollView *rdScrollView;
 
