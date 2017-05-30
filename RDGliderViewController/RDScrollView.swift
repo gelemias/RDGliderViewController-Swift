@@ -6,10 +6,9 @@
 //  Copyright © 2017 Guillermo Delgado. All rights reserved.
 //
 
-// swiftlint:disable function_body_length
+// swiftlint:disable function_body_length type_body_length file_length
 
 import UIKit
-
 
 @objc public enum RDScrollViewOrientationType: Int {
 
