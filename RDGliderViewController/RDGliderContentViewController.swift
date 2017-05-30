@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class RDGliderContentViewController: UIViewController {
+open class RDGliderContentViewController: UIViewController {
 
     public var showShadow: Bool = false {
         didSet {
@@ -46,7 +46,7 @@ public class RDGliderContentViewController: UIViewController {
         super.init(coder: aDecoder)
     }
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.frame = CGRect.init(x:0, y:0, width:self.length!, height:self.length!)
