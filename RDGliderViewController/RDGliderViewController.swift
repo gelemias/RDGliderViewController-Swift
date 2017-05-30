@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc protocol RDGliderViewControllerDelegate {
+@objc public protocol RDGliderViewControllerDelegate: class {
     /**
      Delegate method to notify invoke object when offset has changed
      */
@@ -35,11 +35,11 @@ import UIKit
     func glideViewControllerDidCollapse(glideViewController: RDGliderViewController)
 }
 
-@objc class RDGliderViewController: UIViewController, UIScrollViewDelegate {
+@objc public class RDGliderViewController: UIViewController, UIScrollViewDelegate {
 
     public weak var delegate: RDGliderViewControllerDelegate?
 
-    internal var scrollView: RDScrollView?
+    var scrollView: RDScrollView?
 
     /**
      Content view Controller hosted on the scrollView
@@ -89,7 +89,7 @@ import UIKit
     /**
      Orientation type of the glide view
      */
-    public var orientationType: RDScrollViewOrientationType {
+    public private(set) var orientationType: RDScrollViewOrientationType {
         get {
             if self.scrollView == nil {
                 return .RDScrollViewOrientationUnknown
@@ -103,7 +103,7 @@ import UIKit
     /**
      Current offset of the glide view
      */
-    public var currentOffsetIndex: Int {
+    public private(set) var currentOffsetIndex: Int {
         get {
             if self.scrollView == nil {
                 return 0
@@ -117,7 +117,7 @@ import UIKit
     /**
      Returns a bool for determining if the glide view isn't closed, is different than offset % 0.
      */
-    public var isOpen: Bool {
+    public private(set) var isOpen: Bool {
         get {
             if self.scrollView == nil {
                 return false
@@ -281,16 +281,16 @@ import UIKit
 
 // MARK: - UIScrollViewDelegate
 
-    internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.delegate?.glideViewController(glideViewController: self,
                                            hasChangedOffsetOfContent: scrollView.contentOffset)
     }
 
-    internal func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.changeOffset(to: self.nearestOffsetIndex(to: scrollView.contentOffset), animated:false)
     }
 
-    internal func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         scrollView.setContentOffset(scrollView.contentOffset, animated: false)
     }
 
@@ -324,8 +324,8 @@ import UIKit
 
 // MARK: - Rotation event
 
-    internal override func viewWillTransition(to size: CGSize,
-                                              with coordinator: UIViewControllerTransitionCoordinator) {
+    public override func viewWillTransition(to size: CGSize,
+                                            with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
         if self.contentViewController != nil {

@@ -1,6 +1,8 @@
 ## CHANGELOG
 
-#### Latest version -  1.0.16
+#### Latest version -  1.0.18
++ 2017-05-30 *[Env] update build version to 1.0.16*
++ 2017-05-30 *[ENV] update build version - to upload to cocoapods*
 + 2017-05-30 *[REF] ignored length warnings*
 + 2017-05-30 *[REF] refactor more using swiftlint*
 + 2017-05-29 *[REF] fixed code according to SwiftLint*

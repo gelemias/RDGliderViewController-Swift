@@ -23,7 +23,7 @@ import UIKit
     case RDScrollViewOrientationTopToBottom
 }
 
-@objc class RDScrollView: UIScrollView {
+@objc public class RDScrollView: UIScrollView {
 
     /**
      Draggable content
