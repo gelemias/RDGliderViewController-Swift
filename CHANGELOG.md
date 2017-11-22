@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-#### Latest version -  1.0.22
+#### Latest version -  1.0.23
 + 2017-11-22 *[FIX] Fixed issue happening with changing margin and starting from different offset than 0*
 + 2017-05-30 *[ENV] bump version*
 + 2017-05-30 *[FIX] fixed access control to suit swift 3*
