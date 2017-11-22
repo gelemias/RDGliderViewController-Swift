@@ -1,8 +1,8 @@
 ## CHANGELOG
 
-#### Latest version -  1.0.22
-
-#### Previously released:
+#### Latest version -  1.0.21
++ 2017-05-30 *[ENV] bump version*
++ 2017-05-30 *[FIX] fixed access control to suit swift 3*
 + 2017-05-30 *[FIX] fixed access control*
 + 2017-05-30 *[Env] update build version to 1.0.16*
 + 2017-05-30 *[ENV] update build version - to upload to cocoapods*
@@ -16,3 +16,5 @@
 + 2017-04-27 *[FIX] fixed several issues*
 + 2017-04-27 *[DEV] implemented constraints for reversed glider view controllers*
 + 2017-04-27 *[DEV] completed first implementation*
+
+#### Previously released:
