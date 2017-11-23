@@ -182,6 +182,10 @@ import UIKit
 
         self.contentSize = size
         self.layoutIfNeeded()
+
+        DispatchQueue.main.async {
+            self.changeOffsetTo(offsetIndex: self.offsetIndex, animated: false, completion: nil)
+        }
     }
 
     // Methods to Increase or decrease offset of content within RDScrollView.

@@ -1,6 +1,7 @@
 ## CHANGELOG
 
-#### Latest version -  1.0.25
+#### Latest version -  1.0.23
++ 2017-11-22 *[FIX] Fixed issue happening with changing margin and starting from different offset than 0*
 
 #### Previously released:
 + 2017-05-30 *[ENV] bump version*
@@ -18,3 +19,5 @@
 + 2017-04-27 *[FIX] fixed several issues*
 + 2017-04-27 *[DEV] implemented constraints for reversed glider view controllers*
 + 2017-04-27 *[DEV] completed first implementation*
+
+#### Previously released:
